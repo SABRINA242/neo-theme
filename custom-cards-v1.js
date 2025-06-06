@@ -219,13 +219,11 @@ function initCustomCardsV1(container, config) {
 
 // 자동 초기화
 document.addEventListener('DOMContentLoaded', function() {
-    // {customCards-v1} 패턴 찾기
-    const scriptTags = document.querySelectorAll('script');
-    scriptTags.forEach(script => {
-        const content = script.textContent || script.innerText;
+    // 모든 위젯 컨테이너에서 {customCards-v1} 패턴 찾기
+    document.querySelectorAll('.widget-content').forEach(container => {
+        const content = container.textContent || container.innerText;
         if (content.includes('{customCards-v1}')) {
-            const container = script.parentNode;
-            const configMatch = content.match(/\{customCards-v1\}([\s\S]*?)(?=<\/script>|$)/);
+            const configMatch = content.match(/\{customCards-v1\}([\s\S]*)/);
             if (configMatch) {
                 initCustomCardsV1(container, configMatch[1]);
             }

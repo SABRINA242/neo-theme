@@ -247,13 +247,11 @@ function initLatestPosts(container, config) {
 
 // 자동 초기화
 document.addEventListener('DOMContentLoaded', function() {
-    // {latestPosts} 패턴 찾기
-    const scriptTags = document.querySelectorAll('script');
-    scriptTags.forEach(script => {
-        const content = script.textContent || script.innerText;
+    // 모든 위젯 컨테이너에서 {latestPosts} 패턴 찾기
+    document.querySelectorAll('.widget-content').forEach(container => {
+        const content = container.textContent || container.innerText;
         if (content.includes('{latestPosts}')) {
-            const container = script.parentNode;
-            const configMatch = content.match(/\{latestPosts\}([\s\S]*?)(?=<\/script>|$)/);
+            const configMatch = content.match(/\{latestPosts\}([\s\S]*)/);
             if (configMatch) {
                 initLatestPosts(container, configMatch[1]);
             }
