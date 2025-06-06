@@ -15,6 +15,7 @@ function initLatestPosts(container, config) {
     
     // 설정
     const count = parseInt(params.count) || 6;
+    const label = params.label || null;
     
     // 컨테이너 스타일 설정
     container.innerHTML = `
@@ -182,8 +183,12 @@ function initLatestPosts(container, config) {
         document.head.appendChild(style);
     }
     
-    // 최신 포스트 가져오기
-    fetch(`/feeds/posts/default?alt=json&max-results=${count}`)
+    // 최신 포스트 가져오기 (라벨 옵션 지원)
+    const url = label ? 
+        `/feeds/posts/default/-/${encodeURIComponent(label)}?alt=json&max-results=${count}` :
+        `/feeds/posts/default?alt=json&max-results=${count}`;
+    
+    fetch(url)
         .then(response => response.json())
         .then(data => {
             if (data.feed && data.feed.entry) {
