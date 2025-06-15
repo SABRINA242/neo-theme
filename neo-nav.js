@@ -128,6 +128,38 @@ function createNeoNav(element) {
                 }
                 .nav-item:not(:first-child) { margin-left: 0 !important; }
             }
+            @media (max-width: 480px) {
+                .modern-nav-container {
+                    width: 100% !important;
+                    padding: 3px !important;
+                    margin: 0 !important;
+                }
+                .nav-wrapper { 
+                    flex-direction: column; 
+                    gap: 10px !important; 
+                    width: 100% !important;
+                }
+                .nav-title { 
+                    font-size: 18px !important;
+                    padding: 8px !important;
+                }
+                .nav-items { 
+                    width: 100% !important; 
+                    gap: 5px !important;
+                    padding: 3px 0 !important;
+                }
+                .nav-item { 
+                    min-width: 80px !important; 
+                    padding: 10px 12px !important; 
+                    font-size: 14px !important;
+                }
+                .nav-tag { 
+                    font-size: 12px !important; 
+                }
+                .nav-text { 
+                    font-size: 13px !important; 
+                }
+            }
         </style>
         
         <div class="modern-nav-container">
