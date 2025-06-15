@@ -98,11 +98,35 @@ function createNeoNav(element) {
                 color: #2d3436;
             }
             @media (max-width: 768px) {
-                .nav-wrapper { flex-direction: column; gap: 20px; }
-                .nav-title { writing-mode: horizontal-tb; text-orientation: mixed; }
-                .nav-items { width: 100%; justify-content: flex-start; }
-                .nav-item { min-width: 120px; padding: 15px 20px; }
-                .nav-item:not(:first-child) { margin-left: -20px; }
+                .modern-nav-container {
+                    width: 100% !important;
+                    padding: 5px !important;
+                    box-sizing: border-box !important;
+                }
+                .nav-wrapper { 
+                    flex-direction: column; 
+                    gap: 15px; 
+                    width: 100% !important;
+                    max-width: none !important;
+                }
+                .nav-title { 
+                    writing-mode: horizontal-tb; 
+                    text-orientation: mixed; 
+                    padding: 10px !important;
+                    font-size: 20px !important;
+                }
+                .nav-items { 
+                    width: 100% !important; 
+                    justify-content: flex-start; 
+                    padding: 5px 0 !important;
+                    gap: 10px !important;
+                }
+                .nav-item { 
+                    min-width: 100px !important; 
+                    padding: 12px 15px !important; 
+                    margin-left: 0 !important;
+                }
+                .nav-item:not(:first-child) { margin-left: 0 !important; }
             }
         </style>
         
@@ -125,13 +149,13 @@ function createNeoNav(element) {
         
         <!-- 모달 -->
         <div id="detailModal" class="modal" style="display:none;">
-            <div class="modal-content" style="width:500px;">
-                <div class="modal-header" style="background:#222;color:#fff;display:flex;align-items:center;gap:12px;padding:18px;">
-                    <span style="font-size:15px;font-weight:700;color:#ff9800;">글 목록</span>
-                    <span id="modalClose" style="margin-left:auto;font-size:22px;cursor:pointer;">&times;</span>
+            <div class="modal-content" style="width:500px;background:#ffffff !important;border-radius:15px;box-shadow:0 10px 30px rgba(0,0,0,0.3);overflow:hidden;border:2px solid #ddd;z-index:9999;position:absolute;">
+                <div class="modal-header" style="background:#222 !important;color:#fff !important;display:flex;align-items:center;gap:12px;padding:18px;">
+                    <span style="font-size:15px;font-weight:700;color:#ff9800;">📝 글 목록</span>
+                    <span id="modalClose" style="margin-left:auto;font-size:22px;cursor:pointer;padding:5px;border-radius:50%;transition:background 0.3s ease;" onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='transparent'">&times;</span>
                 </div>
                 <div style="height:2px;width:100%;background:#111;margin:0 0 8px 0;"></div>
-                <div id="modalList" style="max-height:400px;overflow-y:auto;padding:0 10px 10px 10px;"></div>
+                <div id="modalList" style="max-height:400px;overflow-y:auto;padding:0 10px 10px 10px;background:#ffffff !important;"></div>
             </div>
         </div>
     `;
@@ -157,10 +181,14 @@ function createNeoNav(element) {
     const closeBtn = element.querySelector('#modalClose');
     closeBtn.onclick = function() {
         modal.style.display = 'none';
-        modalContent.style.position = '';
-        modalContent.style.top = '';
-        modalContent.style.left = '';
     }
+    
+    // 배경 클릭시 모달 닫기
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
     
     function showDetailModal(entries, targetBtn) {
         const modalList = element.querySelector('#modalList');
@@ -175,6 +203,7 @@ function createNeoNav(element) {
         `).join('');
         modal.style.display = 'block';
         
+        // 원래대로 버튼 아래쪽에 위치
         const btnRect = targetBtn.getBoundingClientRect();
         modalContent.style.position = 'absolute';
         modalContent.style.top = (window.scrollY + btnRect.bottom + 8) + 'px';
